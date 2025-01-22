@@ -10,10 +10,15 @@
     "category": "Operations/Project",
     "depends": ["project", "purchase", "hr"],
     "data": [
+        # Security
+        "security/res_groups.xml",       # Ensure this is loaded first
+        "security/ir.model.access.csv",  # Load this after res_groups.xml
+        
+        # Views
         "views/project_project_views.xml",
     ],
     "installable": True,
     "application": False,
-    "auto_install": False, 
+    "auto_install": False,
     "license": "LGPL-3",
 }
