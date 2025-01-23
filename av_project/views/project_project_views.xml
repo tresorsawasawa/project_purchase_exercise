@@ -15,6 +15,10 @@
                 <attribute name="readonly">{'condition': [('id', '=', False)]}</attribute>
             </xpath>
 
+            <xpath expr="//field[@name='date_start']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+
             <!-- Add project_budget field and currency_id after user_id -->
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="project_budget" widget="monetary" options="{'currency_field': 'currency_id'}"/>
