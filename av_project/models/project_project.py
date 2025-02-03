@@ -27,11 +27,6 @@ class ProjectProject(models.Model):
     date_start = fields.Date(tracking=True, required=True)
     date = fields.Date(required=True)
 
-    def _validate_project_budget(self, budget):
-        """Ensure project budget is not negative."""
-        if budget < 0:
-            raise ValidationError("The project budget must not be negative.")
-
     @api.depends('department_id')
     def _compute_user_id(self):
        for record in self:
@@ -45,20 +40,13 @@ class ProjectProject(models.Model):
             else:
                 record.user_id = False
 
-    @api.model
-    def create(self, vals):
-        """Ensure project_budget is not negative."""
-        # Validate project_budget
-        self._validate_project_budget(vals.get("project_budget", 0))
-
-        return super().create(vals)
-
     def write(self, vals):
         """Ensure project_budget is not negative."""
         for project in self:
             # Validate project_budget if updated
             if 'project_budget' in vals:
-                self._validate_project_budget(vals.get("project_budget", project.project_budget))
+                if vals.get("project_budget") < 0:
+                    raise ValidationError("The project budget must not be negative.")
 
         return super().write(vals)
-
+        
