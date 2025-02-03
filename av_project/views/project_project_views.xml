@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_inherit_view_form" model="ir.ui.view">
+        <field name="name">project.project.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="arch" type="xml">
+            <!-- Add the department_id field before user_id -->
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="department_id"/>
+            </xpath>
+
+            <!-- Modify user_id to make it readonly under certain conditions -->
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="readonly">{'condition': [('id', '=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='date_start']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+
+            <!-- Add project_budget field and currency_id after user_id -->
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="project_budget" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="currency_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
