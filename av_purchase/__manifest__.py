@@ -7,14 +7,14 @@
     """,
     "author": "Tresor Sawasawa",
     "category": "Operations/Purchase",
-    "depends": ["Purchase", "hr"],
+    "depends": ["purchase", "hr"],
     "data": [
         # Security
-        "security/ir.model.access.csv",
         "security/res_groups.xml",
+        "security/ir.model.access.csv",
 
         # Views
-        # "views/Purchase",_Purchase",_views.xml",
+        "views/purchase_order_views.xml",
     ],
     "installable": True,
     "application": False,
