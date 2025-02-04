@@ -1,15 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="module_category_av_project_purchase" model="ir.module.category">
-        <field name="name">Av Project and Purchase</field>
-        <field name="description">Customize Project and Purchase modules.</field>
-        <field name="sequence">50</field>
+    <!-- Create a new top-level category (section) for Av Purchase -->
+    <record id="module_category_av_purchase" model="ir.module.category">
+        <field name="name">Av Purchase</field>
+        <field name="description">Customize Purchase module with new features.</field>
+        <field name="sequence">10</field>
     </record>
 
+    <!-- Create a new group for CP linked to the new category -->
     <record id="group_purchase_cp" model="res.groups">
         <field name="name">CP</field>
-        <field name="category_id" ref="module_category_av_project_purchase"/>
-        <field name="implied_ids" eval="[(4, ref('purchase.group_purchase_user'))]"/>
-        <field name="comment">The CP can create an RFQ in the Purchase module.</field>
+        <field name="category_id" ref="module_category_av_purchase" />
+        <field name="comment">The CP group can create an RFQ in the Purchase module.</field>
     </record>
+
+    <data>
+        <record id="av_purchase.group_purchase_cp" model="res.groups">
+            <field name="name">CP</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="base.module_category_inventory_purchase" />
+        </record>
+
+        <record id="av_purchase.group_purchase_hod" model="res.groups">
+            <field name="name">HOD</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+            <field name="category_id" ref="base.module_category_inventory_purchase" />
+        </record>
+
+        <record id="purchase.menu_purchase_root" model="ir.ui.menu">
+            <field name="groups_id"
+                eval="[(6,0,[ref('purchase.group_purchase_manager'),ref('av_purchase.group_purchase_hod'),ref('av_purchase.group_purchase_cp'),ref('purchase.group_purchase_user')])]" />
+        </record>
+    </data>
 </odoo>
