@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="purchase.group_purchase_user" model="res.groups">
+            <field name="name">CP</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id" ref="base.module_category_inventory_purchase"/>
+        </record>
+
+        <record id="purchase.group_purchase_manager" model="res.groups">
+            <field name="name">HOD</field>
+            <field name="category_id" ref="base.module_category_inventory_purchase"/>
+            <field name="implied_ids" eval="[(3, ref('purchase.group_purchase_user'))]"/>
+        </record>
+
+    </data>
+</odoo>
