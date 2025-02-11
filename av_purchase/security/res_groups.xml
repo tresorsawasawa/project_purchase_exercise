@@ -11,7 +11,6 @@
             <field name="name">HOD</field>
             <field name="category_id" ref="base.module_category_inventory_purchase"/>
             <field name="implied_ids" eval="[(3, ref('purchase.group_purchase_user'))]"/>
-            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         </record>
 
     </data>
